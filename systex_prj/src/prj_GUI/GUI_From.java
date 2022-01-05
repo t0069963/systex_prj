@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -61,7 +62,7 @@ public class GUI_From extends javax.swing.JFrame {
         SELECT = new javax.swing.JButton();
         CategoryComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        monthTextField = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
@@ -118,10 +119,10 @@ public class GUI_From extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ex:  2022-01-04 日期輸入單一格即可查詢單日 兩個都輸入則是查詢範圍");
 
-        jToggleButton1.setText("開啟月份查詢");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        monthTextField.setText("開啟月份查詢");
+        monthTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                monthTextFieldActionPerformed(evt);
             }
         });
 
@@ -132,11 +133,6 @@ public class GUI_From extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(SELECT, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,6 +154,12 @@ public class GUI_From extends javax.swing.JFrame {
                                 .addComponent(endDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 34, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(164, 164, 164)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(monthTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(SELECT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,11 +184,11 @@ public class GUI_From extends javax.swing.JFrame {
                     .addComponent(startDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(monthTextField)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SELECT)
-                    .addComponent(jToggleButton1))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(SELECT)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -226,18 +228,19 @@ public class GUI_From extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CategoryComboBoxActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void monthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_monthTextFieldActionPerformed
 
     
 public String[] gettext(){
-String[] array = new String[5];
+String[] array = new String[7];
 array[0] = CropNameTextField.getText();
 array[1] = MarketNameTextField.getText();
 array[2] = (String)CategoryComboBox.getSelectedItem();;
 array[3] = startDateTextField.getText();
 array[4] = endDateTextField.getText();
+array[5] = String.valueOf(monthTextField.isSelected()) ;
 return array;
 
 }
@@ -306,7 +309,7 @@ return array;
     private javax.swing.JLabel endDateLabel;
     private javax.swing.JTextField endDateTextField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton monthTextField;
     private javax.swing.JLabel startDateLabel;
     private javax.swing.JTextField startDateTextField;
     // End of variables declaration//GEN-END:variables
@@ -319,24 +322,25 @@ public  HashSet<String> get() throws Exception{
             //System.out.println(text[2]);//農或漁
             //System.out.println(text[3]);//開始時間
             //System.out.println(text[4]);//結束時間
-            Date StartDate = new SimpleDateFormat("yyyy-MM-dd").parse(text[3]);
-            //Date EndDate = new SimpleDateFormat("yyyy-MM").parse(text[4]);
-            System.out.println(StartDate);
+            //System.out.println(text[5]);//是否按下按鈕
+
             PreparedStatement statement = null;
             Connection con = getConnection();
             if (text[2] == "農業"){
                 System.out.println(text[2]);
-                System.out.println("第一題");
                 
-                if (text[3].length()!= 0 & text[4].length()!= 0 & text[0].length()!= 0 & text[1].length()!= 0){
-                 statement = con.prepareStatement("SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype` where MarketName = '"+text[1]+"' and CropName = '"+text[0]+"' and TransDate >='"+text[3]+"' and TransDate <='"+text[4]+"'");
+                
+                if ( text[3].length()!= 0 && text[4].length()!= 0 && text[0].length()!= 0 && text[1].length()!= 0 && text[5].equals("false") ){
+                System.out.println("第一題");
+                statement = con.prepareStatement("SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype` where MarketName = '"+text[1]+"' and CropName = '"+text[0]+"' and TransDate >='"+text[3]+"' and TransDate <='"+text[4]+"'");
                     System.out.println("ssss");
                 //輸入起始時間跟結束時間，顯示這段時間農產品中的"椰子"在"台北二"這個市場中的平均交易量、最大交易量、最低交易量。
                 //SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype2` where MarketName = "台北二" and CropName = "椰子" and TransDate >='104.01.01' and TransDate <='107.04.12' ;
                 }
                 ////農第二題
-                else if((text[3].length()!=0) || (text[4].length()!=0)){
-                    System.out.println("第二題");
+                
+                else if( (text[3].length()!=0) ^ (text[4].length()!=0) && text[5].equals("false") ){
+                    System.out.println("農第二題");
                     if ((text[3].length() - text[4].length())>0){
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `agriproductstranstype` where TransDate = '"+text[3]+"';");
                     }
@@ -344,7 +348,25 @@ public  HashSet<String> get() throws Exception{
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `agriproductstranstype` where TransDate = '"+text[4]+"';");
                     }
                 }
-                ///
+                ///第四題
+                else if((text[3].length()!=0) ^ (text[4].length()!=0) && text[5].equals("true")){
+                  String textdata;
+                    if ((text[3].length() - text[4].length())>0){
+                      textdata = text[3];
+                  }else{
+                      textdata = text[4];
+                    }
+                    
+                Date StartDate = new SimpleDateFormat("yyyy-MM").parse(textdata);
+                SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
+                SimpleDateFormat getmonDateFormat = new SimpleDateFormat("MM");
+                String currentYear = getYearFormat.format(StartDate);
+                String currentMon = getmonDateFormat.format(StartDate);
+                //Date EndDate = new SimpleDateFormat("yyyy-MM").parse(text[4]);
+                 statement = con.prepareStatement("SELECT CropName, sum(Trans_Quantity) AS total_Quantity FROM  `agriproductstranstype` where month(TransDate)='"+currentMon+"'and year(TransDate)='"+currentYear+"' GROUP BY CropName ORDER BY total_Quantity DESC Limit 10;");
+                
+                
+                }
                
    
              
@@ -354,8 +376,8 @@ public  HashSet<String> get() throws Exception{
              if (text[2]=="漁業"){
                 System.out.println(text[2]);
                 //漁第二題
-                if((text[3].length()!=0) || (text[4].length()!=0)){
-                    System.out.println("第二題");
+                if(text[3].length()!= 0 && text[4].length()!= 0 && text[0].length()!= 0 && text[1].length()!= 0 && text[5].equals("false")){
+                    System.out.println("漁第二題");
                     if ((text[3].length() - text[4].length())>0){
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `fisheryproductstranstype` where TransDate = '"+text[3]+"';");
                     }
@@ -384,19 +406,20 @@ public  HashSet<String> get() throws Exception{
 	    	columns.add(rsmd.getColumnName(x));
 	    }
            int arrayCount=0;
-           Map map = new HashMap();
            JSONArray jsonArray = new JSONArray();
            int n= 0;
            while(result.next()){
                n=n+1;
                 arrayCount  = result.getMetaData().getColumnCount();
+                System.out.println(arrayCount);
                 JSONObject obj = new JSONObject();
                for (int j = 0; j < arrayCount; j++) {
                     obj.put(result.getMetaData().getColumnLabel(j + 1), result.getObject(j + 1));
-                    jsonArray.add(obj);
+                    System.out.println(obj); 
                }
+               jsonArray.add(obj);
               //  System.out.println(jsonArray.getClass().getSimpleName() );
-               System.out.println(jsonArray.get(0));
+               //System.out.println(jsonArray);
              
                 
                 //array.add(result.getString("Trans_Quantity"));
@@ -420,6 +443,7 @@ public  HashSet<String> get() throws Exception{
             }
             
         } 
+     
    // Step 3: 建立 Table
        javax.swing.JTable table=new javax.swing.JTable(data,headings);
        // 建立一個 Frame 秀出表格

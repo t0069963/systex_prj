@@ -11,11 +11,8 @@ import java.time.chrono.MinguoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DecimalStyle;
-import java.time.temporal.TemporalAmount;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Scanner;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -61,10 +58,10 @@ public class MainGET {
                     inline += scanner.nextLine();
                 }
 
-                //Close the scanner
+             
                 scanner.close();
 
-                //Using the JSON simple library parse the string into a json object
+                //使用JSON simple庫將字符串解析為 json 對象
                 JSONParser parse = new JSONParser();
                 JSONObject data_obj = (JSONObject) parse.parse(inline);
                 
