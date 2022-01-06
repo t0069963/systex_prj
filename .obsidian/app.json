@@ -1,3 +1,5 @@
 {
-  "defaultViewMode": "preview"
+  "defaultViewMode": "preview",
+  "newLinkFormat": "relative",
+  "promptDelete": false
 }
