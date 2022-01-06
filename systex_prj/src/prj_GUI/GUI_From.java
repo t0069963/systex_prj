@@ -63,6 +63,8 @@ public class GUI_From extends javax.swing.JFrame {
         CategoryComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         monthTextField = new javax.swing.JToggleButton();
+        PastdaysTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
@@ -126,6 +128,14 @@ public class GUI_From extends javax.swing.JFrame {
             }
         });
 
+        PastdaysTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PastdaysTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Past days");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,6 +143,9 @@ public class GUI_From extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(SELECT, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,25 +154,30 @@ public class GUI_From extends javax.swing.JFrame {
                             .addComponent(MarketNameLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(startDateLabel)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(startDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CropNameTextField)
-                            .addComponent(MarketNameTextField)
-                            .addComponent(CategoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CropNameTextField)
+                                    .addComponent(MarketNameTextField)
+                                    .addComponent(CategoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(endDateLabel)
                                 .addGap(18, 18, 18)
                                 .addComponent(endDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 34, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(PastdaysTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(monthTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                    .addComponent(SELECT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,16 +194,19 @@ public class GUI_From extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CategoryLabel)
                     .addComponent(CategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(startDateLabel)
-                    .addComponent(endDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endDateLabel)
-                    .addComponent(startDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(endDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(monthTextField)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(monthTextField)
+                    .addComponent(PastdaysTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(SELECT)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -232,6 +253,10 @@ public class GUI_From extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_monthTextFieldActionPerformed
 
+    private void PastdaysTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PastdaysTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PastdaysTextField1ActionPerformed
+
     
 public String[] gettext(){
 String[] array = new String[7];
@@ -241,6 +266,7 @@ array[2] = (String)CategoryComboBox.getSelectedItem();;
 array[3] = startDateTextField.getText();
 array[4] = endDateTextField.getText();
 array[5] = String.valueOf(monthTextField.isSelected()) ;
+array[6] = PastdaysTextField1.getText();
 return array;
 
 }
@@ -305,10 +331,12 @@ return array;
     private javax.swing.JTextField CropNameTextField;
     private javax.swing.JLabel MarketNameLabel;
     private javax.swing.JTextField MarketNameTextField;
+    private javax.swing.JTextField PastdaysTextField1;
     private javax.swing.JButton SELECT;
     private javax.swing.JLabel endDateLabel;
     private javax.swing.JTextField endDateTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JToggleButton monthTextField;
     private javax.swing.JLabel startDateLabel;
     private javax.swing.JTextField startDateTextField;
@@ -323,14 +351,15 @@ public  HashSet<String> get() throws Exception{
             //System.out.println(text[3]);//開始時間
             //System.out.println(text[4]);//結束時間
             //System.out.println(text[5]);//是否按下按鈕
-
+            //System.out.println(text[6]);//過去天數
             PreparedStatement statement = null;
+            double thirdQuestion= 0;
             Connection con = getConnection();
             if (text[2] == "農業"){
                 System.out.println(text[2]);
                 
                 
-                if ( text[3].length()!= 0 && text[4].length()!= 0 && text[0].length()!= 0 && text[1].length()!= 0 && text[5].equals("false") ){
+                if ( text[3].length()!= 0 && text[4].length()!= 0 && text[0].length()!= 0 && text[1].length()!= 0 && text[6].length()== 0&& text[5].equals("false") ){
                 System.out.println("第一題");
                 statement = con.prepareStatement("SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype` where MarketName = '"+text[1]+"' and CropName = '"+text[0]+"' and TransDate >='"+text[3]+"' and TransDate <='"+text[4]+"'");
                     System.out.println("ssss");
@@ -339,7 +368,7 @@ public  HashSet<String> get() throws Exception{
                 }
                 ////農第二題
                 
-                else if( (text[3].length()!=0) ^ (text[4].length()!=0) && text[5].equals("false") ){
+                else if( ((text[3].length()!=0) ^ (text[4].length()!=0)) && text[5].equals("false") && text[6].length()== 0){
                     System.out.println("農第二題");
                     if ((text[3].length() - text[4].length())>0){
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `agriproductstranstype` where TransDate = '"+text[3]+"';");
@@ -348,8 +377,26 @@ public  HashSet<String> get() throws Exception{
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `agriproductstranstype` where TransDate = '"+text[4]+"';");
                     }
                 }
+                //第三題
+                else if( ((text[3].length()!=0) ^ (text[4].length()!=0)) && text[0].length()!= 0 && text[1].length()!= 0 && text[6].length()!= 0){
+                    System.out.println("第三題"); 
+                    thirdQuestion = 1 ;
+                    String textdata;
+                    if ((text[3].length() - text[4].length())>0){
+                      textdata = text[3];
+                  }else{
+                      textdata = text[4];
+                    }
+                statement = con.prepareStatement("SELECT Trans_Quantity,TransDate  from `agriproductstranstype` where  TransDate >= date_sub('"+text[3]+"',INTERVAL 5 DAY) and TransDate <= '"+textdata+"'and MarketName ='"+text[1]+"' and CropName ='"+text[0]+"' ORDER BY TransDate ASC;");
+                }
+                
+                
+                
+                
+                
                 ///第四題
-                else if((text[3].length()!=0) ^ (text[4].length()!=0) && text[5].equals("true")){
+                else if( ((text[3].length()!=0) ^ (text[4].length()!=0)) && text[5].equals("true") && text[6].length()== 0 ){
+                  System.out.println("第四題");
                   String textdata;
                     if ((text[3].length() - text[4].length())>0){
                       textdata = text[3];
@@ -376,7 +423,7 @@ public  HashSet<String> get() throws Exception{
              if (text[2]=="漁業"){
                 System.out.println(text[2]);
                 //漁第二題
-                if(text[3].length()!= 0 && text[4].length()!= 0 && text[0].length()!= 0 && text[1].length()!= 0 && text[5].equals("false")){
+                if(((text[3].length()!=0) ^ (text[4].length()!=0)) && text[5].equals("false") && text[6].length()== 0){
                     System.out.println("漁第二題");
                     if ((text[3].length() - text[4].length())>0){
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `fisheryproductstranstype` where TransDate = '"+text[3]+"';");
@@ -408,48 +455,72 @@ public  HashSet<String> get() throws Exception{
            int arrayCount=0;
            JSONArray jsonArray = new JSONArray();
            int n= 0;
+           
            while(result.next()){
+           JSONObject obj = new JSONObject();
                n=n+1;
                 arrayCount  = result.getMetaData().getColumnCount();
-                System.out.println(arrayCount);
-                JSONObject obj = new JSONObject();
+                //System.out.println(arrayCount);
+               
                for (int j = 0; j < arrayCount; j++) {
                     obj.put(result.getMetaData().getColumnLabel(j + 1), result.getObject(j + 1));
+                    //每筆的值
                     System.out.println(obj); 
+                   
                }
                jsonArray.add(obj);
               //  System.out.println(jsonArray.getClass().getSimpleName() );
-               //System.out.println(jsonArray);
-             
-                
+ 
                 //array.add(result.getString("Trans_Quantity"));
-            }
-            System.out.println("n"+n);
-         String[] setColumns = columns.toArray(new String[0]);
-            System.out.println(columns);
-    // Step 1: 設定每一個資料的項目
-       String [] headings= setColumns;
-   // Step 2: 指定要顯示在表格中的資料
-     Object[][] data = new String[n][headings.length];
+            }       
+            System.out.println("sssssss"+jsonArray);
+            //System.out.println("n"+n);
+     String[] setColumns = columns.toArray(new String[0]);
+     //System.out.println(columns);
+    //設定每一個資料的項目
+   
+ 
+    
+    String [] headings= setColumns;
+   //指定要顯示在表格中的資料
+    Object[][] data = new String[n][headings.length];
+    System.out.println("aaa"+n);
     String [] totalArray= new String[headings.length];
     JSONObject arrayhigh = (JSONObject) jsonArray.get(0);
-    System.out.println(arrayCount);
-            
+    //System.out.println(arrayCount);
+    double lastStroke=0;
+    String transQuantityboolean= "True";
     for (int j = 0; j < n; j++) {
         JSONObject jsb   =(JSONObject)jsonArray.get(j);
             for (int k = 0; k < headings.length; k++) {
                 //System.out.println(jsb.get(headings[k]));              
                 data[j][k]=String.valueOf(jsb.get(headings[k]));
+                
+                if(headings[k].equals("Trans_Quantity")){
+                    double jsbDouble =  (double) jsb.get(headings[k]);
+                    if ( lastStroke<jsbDouble){
+                        transQuantityboolean = "False";
+                    }
+                    lastStroke=Double.valueOf(jsbDouble);
+                }
+       
             }
             
         } 
-     
-   // Step 3: 建立 Table
-       javax.swing.JTable table=new javax.swing.JTable(data,headings);
-       // 建立一個 Frame 秀出表格
+    String [] headings2={"是否為嚴格遞增"};
+    Object[][] data2 ={{transQuantityboolean}};
+    javax.swing.JTable table;
+   //建立 Table
+   if(thirdQuestion==1){
+       table=new javax.swing.JTable(data2,headings2);
+   }else{
+       table=new javax.swing.JTable(data,headings);
+   }
+   //Frame 秀出表格
        javax.swing.JFrame MyFrame=new javax.swing.JFrame("農漁表格");
        MyFrame.setSize(500,200);
        MyFrame.setLocation(200,200);
+
        MyFrame.getContentPane().add(new javax.swing.JScrollPane(table));
        MyFrame.setVisible(true);
             //return array;
@@ -458,7 +529,7 @@ public  HashSet<String> get() throws Exception{
         
         
     }
-	//創表格
+//創表格
 	public static void creatTable()throws Exception{
 		try {
                        

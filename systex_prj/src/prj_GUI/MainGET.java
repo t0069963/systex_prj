@@ -23,6 +23,8 @@ public class MainGET {
     public static void main(String[] args) {
         try {
            LocalDate localDate = LocalDate.now();
+           //LocalDate localDate= LocalDate.of(2021, 06, 12); 
+
            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
            String localDatenow = null;//比較時間 = 今天時間- 回圈圈數
            String stopDate = "104.01.01";//停止日期
@@ -72,6 +74,9 @@ public class MainGET {
                 //System.out.println(responsecode);
                 //傳JSON行數
                 System.out.println(a.size());
+                if (a.size()==0){
+                    continue;
+                }
         
                 //預設
                 String TransDate = "104.01.01";
@@ -89,6 +94,7 @@ public class MainGET {
                 
                 
                 for (int i = 0; i < a.size(); i++) {
+              
                     System.out.println(i);
                     JSONObject b   =(JSONObject) a.get(i);
                
