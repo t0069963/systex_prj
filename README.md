@@ -44,7 +44,7 @@
 - 輸出:
 - 十個農產品 、 (總交易量)
 ## 架構流程:
-![[img/流程圖.drawio.png]]
+![流程圖 drawio](https://user-images.githubusercontent.com/77679082/148413297-606e65c7-7665-4a9e-a567-fad84584ca1a.png)
 ```sql
 CREATE TABLE IF NOT EXISTS agriproductstranstype(id int NOT NULL AUTO_INCREMENT, TransDate date, 
 CropCode varchar(10), 
@@ -81,26 +81,26 @@ Avg_Price & Trans_Quantity 因為需要計算故使用精度較高的DOUBLE
 ## 使用說明
 第一題:
 輸入: 產品名稱 、 市場名稱 、 農漁別 、 開始時間 、 結束時間
-![[img/1.png]]
+![1](https://user-images.githubusercontent.com/77679082/148412834-96a5b093-2b3c-49ae-bd09-0de24d3fd2ad.png)
 結果:
-![[img/1農漁表格.png]]
+![1農漁表格](https://user-images.githubusercontent.com/77679082/148412982-bcef16f9-cefe-4ea5-bcbe-10b796545ee6.png)
 第二題:
 輸入: 單一時間 、 農或漁
-![[img/2.png]]
-![[img/2-1.png]]
+![2](https://user-images.githubusercontent.com/77679082/148413085-7ff3a0a5-4af9-4446-80ad-0886d01237dd.png)
+![2-1](https://user-images.githubusercontent.com/77679082/148413110-99680ee2-c779-43cc-adbe-2a37d47251cd.png)
 結果:
-![[img/2農漁表格.png]]
-![[img/2-1農漁表格.png]]
+![2農漁表格](https://user-images.githubusercontent.com/77679082/148413173-b24f4abd-a063-40bb-ac7b-48e829a3fc66.png)
+![2-1農漁表格](https://user-images.githubusercontent.com/77679082/148413177-5bdfd75f-5015-4050-bf62-3cb2864f179c.png)
 第三題:
 輸入: 產品名稱 、 市場名稱 、 農業 、單一時間 、 天數
-![[img/3.png]]
+![3](https://user-images.githubusercontent.com/77679082/148413277-9af84335-ff2f-4023-bbcc-97bff97940eb.png)
 結果:
-![[img/3農漁表格.png]]
+![3農漁表格](https://user-images.githubusercontent.com/77679082/148413288-e602a341-0d74-48da-b6ca-ae6c4a84d566.png)
 第四題:
 輸入: 輸入年月 、 按下開啟月份查詢
-![[img/4.png]]
+![4](https://user-images.githubusercontent.com/77679082/148413292-354e450e-3297-4fee-bd5f-82b3ebc64bd3.png)
 結果:
-![[img/4農漁表格.png]]
+![4農漁表格](https://user-images.githubusercontent.com/77679082/148413294-5dceab08-4ca1-4d79-80a3-be0d05eb6201.png)
 ## 雜
 Q:TLS版本不符合
 javax.net.ssl.SSLException: Connection reset
