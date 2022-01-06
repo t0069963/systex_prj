@@ -22,16 +22,19 @@ public class MainGET {
 
     public static void main(String[] args) {
         try {
-           LocalDate localDate = LocalDate.now();
-           //LocalDate localDate= LocalDate.of(2021, 06, 12); 
-
+           //LocalDate localDate = LocalDate.now();
+           LocalDate localDate= LocalDate.of(2018, 1, 17); 
            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
            String localDatenow = null;//比較時間 = 今天時間- 回圈圈數
-           String stopDate = "104.01.01";//停止日期
+           //String stopDate = "104.01.01";//農停止日期
+           String stopDate = "1040601";//漁停止日期
             //轉民國Date字串轉西元
             Chronology chrono = MinguoChronology.INSTANCE;
             DateTimeFormatter df = new DateTimeFormatterBuilder().parseLenient()
-            .appendPattern("yyy.MM.dd").toFormatter().withChronology(chrono)
+            //農
+            //.appendPattern("yyy.MM.dd").toFormatter().withChronology(chrono)
+            //漁        
+            .appendPattern("yyyMMdd").toFormatter().withChronology(chrono)
             .withDecimalStyle(DecimalStyle.of(Locale.getDefault()));
             
              
@@ -39,7 +42,9 @@ public class MainGET {
                 localDate = localDate.minusDays(1);
                 localDatenow =localDate.format(df);
                 System.out.println("目前日期: "+localDatenow);
-                URL url = new URL("https://data.coa.gov.tw/api/v1/AgriProductsTransType/?Start_time="+localDatenow+"&End_time="+localDatenow+"");
+                //農
+                //URL url = new URL("https://data.coa.gov.tw/api/v1/AgriProductsTransType/?Start_time="+localDatenow+"&End_time="+localDatenow+"");
+                URL url = new URL("https://data.coa.gov.tw/api/v1/FisheryProductsTransType/?Start_time="+localDatenow+"&End_time="+localDatenow+"");
             System.out.println(url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -100,14 +105,27 @@ public class MainGET {
                
 
 
+//                    TransDate=(String) b.get("TransDate");
+//                    CropCode=(String) b.get("CropCode");
+//                    CropName=(String) b.get("CropName");
+//                    System.out.println(CropName);
+//                    MarketCode=Integer.parseInt ((String) b.get("MarketCode"));
+//                    MarketName = (String) b.get("MarketName");
+//                    Avg_Price=Double.valueOf(b.get("Avg_Price").toString());
+//                    Trans_Quantity=Double.parseDouble(b.get("Trans_Quantity").toString());
+
+//漁
                     TransDate=(String) b.get("TransDate");
-                    CropCode=(String) b.get("CropCode");
-                    CropName=(String) b.get("CropName");
+                    CropCode=(String) b.get("SeafoodProdCode");
+                    CropName=(String) b.get("SeafoodProdName");
                     System.out.println(CropName);
-                    MarketCode=Integer.parseInt ((String) b.get("MarketCode"));
+                    //MarketCode=Integer.parseInt ((String) b.get("MarketCode"));
                     MarketName = (String) b.get("MarketName");
                     Avg_Price=Double.valueOf(b.get("Avg_Price").toString());
                     Trans_Quantity=Double.parseDouble(b.get("Trans_Quantity").toString());
+
+
+
 
                
                     ChronoLocalDate d1 = chrono.date(df.parse(TransDate));
@@ -118,7 +136,8 @@ public class MainGET {
                     TransDate= ld1.format(fmt);
                     System.out.println(TransDate);
                     Connection con = getConnection();
-                    PreparedStatement posted = con.prepareStatement("INSERT INTO `agriproductstranstype` (`TransDate`, `CropCode`, `CropName`, `MarketCode`, `MarketName`, `Avg_Price`, `Trans_Quantity`) VALUES ('"+TransDate+"', '"+CropCode+"', '"+CropName+"', '"+MarketCode+"', '"+MarketName+"', '"+Avg_Price+"', '"+Trans_Quantity+"')");
+                    //PreparedStatement posted = con.prepareStatement("INSERT INTO `agriproductstranstype` (`TransDate`, `CropCode`, `CropName`, `MarketCode`, `MarketName`, `Avg_Price`, `Trans_Quantity`) VALUES ('"+TransDate+"', '"+CropCode+"', '"+CropName+"', '"+MarketCode+"', '"+MarketName+"', '"+Avg_Price+"', '"+Trans_Quantity+"')");
+                    PreparedStatement posted = con.prepareStatement("INSERT INTO `fisheryproductstranstype` (`TransDate`, `CropCode`, `CropName`, `MarketName`, `Avg_Price`, `Trans_Quantity`) VALUES ('"+TransDate+"', '"+CropCode+"', '"+CropName+"', '"+MarketName+"', '"+Avg_Price+"', '"+Trans_Quantity+"')");
                     posted.executeUpdate();
                         //JSONObject jsonData = (JSONObject)data_obj.get("data").toString();
                         //System.out.println(jsonData);
