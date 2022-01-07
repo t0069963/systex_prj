@@ -131,3 +131,8 @@ A:修改最大連結數 1000是因為爬一天的數量為1000筆
 set global max_connections=1000;
 show variables like 'max_connections';
 ```
+## 所使用版本
+MySQL資料庫 -8.0.27
+JAVA -11
+json-simple-1.1.1
+mysql-connector-java-8.0.27
