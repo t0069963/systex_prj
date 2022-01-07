@@ -394,7 +394,7 @@ public  HashSet<String> get() throws Exception{
                 //第一題
                 if ( text[3].length()!= 0 && text[4].length()!= 0 && text[0].length()!= 0 && text[1].length()!= 0 && text[6].length()== 0&& text[5].equals("false") ){
                     System.out.println("第一題");
-                    statement = con.prepareStatement("SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype` where MarketName = '"+text[1]+"' and CropName = '"+text[0]+"' and TransDate >='"+text[3]+"' and TransDate <='"+text[4]+"'");
+                    statement = con.prepareStatement("SELECT CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype` where MarketName = '"+text[1]+"' and CropName = '"+text[0]+"' and TransDate >='"+text[3]+"' and TransDate <='"+text[4]+"'");
                 //輸入起始時間跟結束時間，顯示這段時間農產品中的"椰子"在"台北二"這個市場中的平均交易量、最大交易量、最低交易量。
                 //SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype2` where MarketName = "台北二" and CropName = "椰子" and TransDate >='104.01.01' and TransDate <='107.04.12' ;
                 }

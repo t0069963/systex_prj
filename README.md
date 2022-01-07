@@ -68,7 +68,7 @@ Avg_Price DOUBLE,
 Trans_Quantity DOUBLE,
 PRIMARY KEY(id));
 ```
-- SQL 名稱及使用型態說明
+- SQL 名稱及使用型態說明  
 取一樣名子只是為了修改程式方便.  
 TransDate 用data是因為第四題需要分別使用年和月故切割比較方便.  
 CropCode 是因為當初不知容量故選比較占容量比較小的varchar.  
@@ -88,8 +88,7 @@ Avg_Price & Trans_Quantity 因為需要計算故使用精度較高的DOUBLE.
 
 ![1](https://user-images.githubusercontent.com/77679082/148412834-96a5b093-2b3c-49ae-bd09-0de24d3fd2ad.png)  
 結果:<br>
-![1農漁表格](https://user-images.githubusercontent.com/77679082/148412982-bcef16f9-cefe-4ea5-bcbe-10b796545ee6.png)  
-
+![1農漁表格](https://user-images.githubusercontent.com/77679082/148494745-b42184dd-9eed-48bc-95ea-ed2c8a3bb0c0.png)  
 > 第二題:
 > 輸入: 單一時間 、 農或漁
 
