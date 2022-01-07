@@ -67,14 +67,14 @@ Trans_Quantity DOUBLE,
 PRIMARY KEY(id));
 ```
 - SQL 名稱及型態說明
-取一樣名子只是為了修改程式方便
-TransDate 用data是因為第四題需要分別使用年和月故切割比較方便
-CropCode 是因為當初不知容量故選比較占容量比較小的varchar
-CropName 同上
-MarketCode而是 農產市場資料 這份資料來看沒有超過3
-MarketName 同CropCode
-Avg_Price & Trans_Quantity 因為需要計算故使用精度較高的DOUBLE
-至於原API內的Upper_Price 、 Middle_Price 、 Lower_Price 因為沒用到所以不輸入資料庫
+取一樣名子只是為了修改程式方便.
+TransDate 用data是因為第四題需要分別使用年和月故切割比較方便.
+CropCode 是因為當初不知容量故選比較占容量比較小的varchar.
+CropName 同上.
+MarketCode而是 農產市場資料 這份資料來看沒有超過3.
+MarketName 同CropCode.
+Avg_Price & Trans_Quantity 因為需要計算故使用精度較高的DOUBLE.
+至於原API內的Upper_Price 、 Middle_Price 、 Lower_Price 因為沒用到所以不輸入資料庫.
 
 
 
