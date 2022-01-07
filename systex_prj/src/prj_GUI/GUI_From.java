@@ -257,7 +257,8 @@ public class GUI_From extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PastdaysTextField1ActionPerformed
 
-    
+
+//將GUI介面 信息寫進Array以便取用    
 public String[] gettext(){
 String[] array = new String[7];
 array[0] = CropNameTextField.getText();
@@ -352,24 +353,28 @@ public  HashSet<String> get() throws Exception{
             //System.out.println(text[4]);//結束時間
             //System.out.println(text[5]);//是否按下按鈕
             //System.out.println(text[6]);//過去天數
+            
+            //設定為null理由為當沒有符合以下條件時則會報錯則可以知道目前邏輯沒有照預想走
             PreparedStatement statement = null;
+            //第三題 初始值
             double thirdQuestion= 0;
             Connection con = getConnection();
             if (text[2] == "農業"){
                 System.out.println(text[2]);
                 
                 
+                //第一題
                 if ( text[3].length()!= 0 && text[4].length()!= 0 && text[0].length()!= 0 && text[1].length()!= 0 && text[6].length()== 0&& text[5].equals("false") ){
-                System.out.println("第一題");
-                statement = con.prepareStatement("SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype` where MarketName = '"+text[1]+"' and CropName = '"+text[0]+"' and TransDate >='"+text[3]+"' and TransDate <='"+text[4]+"'");
-                    System.out.println("ssss");
+                    System.out.println("第一題");
+                    statement = con.prepareStatement("SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype` where MarketName = '"+text[1]+"' and CropName = '"+text[0]+"' and TransDate >='"+text[3]+"' and TransDate <='"+text[4]+"'");
                 //輸入起始時間跟結束時間，顯示這段時間農產品中的"椰子"在"台北二"這個市場中的平均交易量、最大交易量、最低交易量。
                 //SELECT TransDate,CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Quantity) FROM `agriproductstranstype2` where MarketName = "台北二" and CropName = "椰子" and TransDate >='104.01.01' and TransDate <='107.04.12' ;
                 }
-                ////農第二題
                 
+                
+                //第二題-農業
                 else if( ((text[3].length()!=0) ^ (text[4].length()!=0)) && text[5].equals("false") && text[6].length()== 0){
-                    System.out.println("農第二題");
+                    System.out.println("第二題-農業");
                     if ((text[3].length() - text[4].length())>0){
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `agriproductstranstype` where TransDate = '"+text[3]+"';");
                     }
@@ -377,6 +382,8 @@ public  HashSet<String> get() throws Exception{
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `agriproductstranstype` where TransDate = '"+text[4]+"';");
                     }
                 }
+                
+                
                 //第三題
                 else if( ((text[3].length()!=0) ^ (text[4].length()!=0)) && text[0].length()!= 0 && text[1].length()!= 0 && text[6].length()!= 0){
                     System.out.println("第三題"); 
@@ -384,45 +391,38 @@ public  HashSet<String> get() throws Exception{
                     String textdata;
                     if ((text[3].length() - text[4].length())>0){
                       textdata = text[3];
-                  }else{
+                    }else{
                       textdata = text[4];
-                    }
-                statement = con.prepareStatement("SELECT Trans_Quantity,TransDate  from `agriproductstranstype` where  TransDate >= date_sub('"+text[3]+"',INTERVAL 5 DAY) and TransDate <= '"+textdata+"'and MarketName ='"+text[1]+"' and CropName ='"+text[0]+"' ORDER BY TransDate ASC;");
+                   }
+                    statement = con.prepareStatement("SELECT Trans_Quantity,TransDate  from `agriproductstranstype` where  TransDate >= date_sub('"+text[3]+"',INTERVAL 5 DAY) and TransDate <= '"+textdata+"'and MarketName ='"+text[1]+"' and CropName ='"+text[0]+"' ORDER BY TransDate ASC;");
                 }
                 
-                
-                
-                
-                
+
                 ///第四題
                 else if( ((text[3].length()!=0) ^ (text[4].length()!=0)) && text[5].equals("true") && text[6].length()== 0 ){
                   System.out.println("第四題");
                   String textdata;
                     if ((text[3].length() - text[4].length())>0){
                       textdata = text[3];
-                  }else{
+                    }else{
                       textdata = text[4];
                     }
-                    
-                Date StartDate = new SimpleDateFormat("yyyy-MM").parse(textdata);
-                SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
-                SimpleDateFormat getmonDateFormat = new SimpleDateFormat("MM");
-                String currentYear = getYearFormat.format(StartDate);
-                String currentMon = getmonDateFormat.format(StartDate);
-                //Date EndDate = new SimpleDateFormat("yyyy-MM").parse(text[4]);
-                 statement = con.prepareStatement("SELECT CropName, sum(Trans_Quantity) AS total_Quantity FROM  `agriproductstranstype` where month(TransDate)='"+currentMon+"'and year(TransDate)='"+currentYear+"' GROUP BY CropName ORDER BY total_Quantity DESC Limit 10;");
-                
-                
+                //將輸入日期內容轉成Date型態
+                    Date StartDate = new SimpleDateFormat("yyyy-MM").parse(textdata);
+                //設定年月的形式
+                    SimpleDateFormat getYearFormat = new SimpleDateFormat("yyyy");
+                    SimpleDateFormat getmonDateFormat = new SimpleDateFormat("MM");
+                //轉成年和月
+                    String currentYear = getYearFormat.format(StartDate);
+                    String currentMon = getmonDateFormat.format(StartDate);
+                //SQL語句
+                    statement = con.prepareStatement("SELECT CropName, sum(Trans_Quantity) AS total_Quantity FROM  `agriproductstranstype` where month(TransDate)='"+currentMon+"'and year(TransDate)='"+currentYear+"' GROUP BY CropName ORDER BY total_Quantity DESC Limit 10;");
                 }
-               
-   
-             
-             
              }
          
              if (text[2]=="漁業"){
                 System.out.println(text[2]);
-                //漁第二題
+                //第二題-漁業
                 if(((text[3].length()!=0) ^ (text[4].length()!=0)) && text[5].equals("false") && text[6].length()== 0){
                     System.out.println("漁第二題");
                     if ((text[3].length() - text[4].length())>0){
@@ -435,30 +435,27 @@ public  HashSet<String> get() throws Exception{
             }
             
              
-             
-             
-             
-             
-             
-             
-             
      
-     //以下為資料處理相關       
+            //以下為資料處理相關       
+            //接回SQL語句結果 #executeQuery只能用來查詢
             ResultSet result = statement.executeQuery();
             
             HashSet<String> columns = new HashSet<String>();
             ResultSetMetaData rsmd =result.getMetaData();
             int count = rsmd.getColumnCount();
+            
+            //取得列的名稱
             for (int x = 1; x <= count; x++) {
 	    	columns.add(rsmd.getColumnName(x));
 	    }
            int arrayCount=0;
            JSONArray jsonArray = new JSONArray();
+           //n 為判斷列數
            int n= 0;
            
            while(result.next()){
-           JSONObject obj = new JSONObject();
-               n=n+1;
+                JSONObject obj = new JSONObject();
+                n=n+1;
                 arrayCount  = result.getMetaData().getColumnCount();
                 //System.out.println(arrayCount);
                
@@ -469,73 +466,63 @@ public  HashSet<String> get() throws Exception{
                    
                }
                jsonArray.add(obj);
-              //  System.out.println(jsonArray.getClass().getSimpleName() );
- 
-                //array.add(result.getString("Trans_Quantity"));
             }       
-            System.out.println("sssssss"+jsonArray);
-            //System.out.println("n"+n);
-     String[] setColumns = columns.toArray(new String[0]);
-     //System.out.println(columns);
-    //設定每一個資料的項目
-   
- 
-    
-    String [] headings= setColumns;
-   //指定要顯示在表格中的資料
-    Object[][] data = new String[n][headings.length];
-    System.out.println("aaa"+n);
-    String [] totalArray= new String[headings.length];
-    JSONObject arrayhigh = (JSONObject) jsonArray.get(0);
-    //System.out.println(arrayCount);
-    double lastStroke=0;
-    String transQuantityboolean= "True";
-    for (int j = 0; j < n; j++) {
-        JSONObject jsb   =(JSONObject)jsonArray.get(j);
-            for (int k = 0; k < headings.length; k++) {
-                //System.out.println(jsb.get(headings[k]));              
-                data[j][k]=String.valueOf(jsb.get(headings[k]));
-                
-                if(headings[k].equals("Trans_Quantity")){
-                    double jsbDouble =  (double) jsb.get(headings[k]);
-                    if ( lastStroke<jsbDouble){
-                        transQuantityboolean = "False";
-                    }
-                    lastStroke=Double.valueOf(jsbDouble);
-                }
-       
-            }
-            
-        } 
-    String [] headings2={"是否為嚴格遞增"};
-    Object[][] data2 ={{transQuantityboolean}};
-    javax.swing.JTable table;
-   //建立 Table
-   if(thirdQuestion==1){
-       table=new javax.swing.JTable(data2,headings2);
-   }else{
-       table=new javax.swing.JTable(data,headings);
-   }
-   //Frame 秀出表格
-       javax.swing.JFrame MyFrame=new javax.swing.JFrame("農漁表格");
-       MyFrame.setSize(500,200);
-       MyFrame.setLocation(200,200);
+            System.out.println("jsonArray結果"+jsonArray);
 
-       MyFrame.getContentPane().add(new javax.swing.JScrollPane(table));
-       MyFrame.setVisible(true);
-            //return array;
-        }catch(Exception e){System.out.println(e);}
-        return null;
-        
-        
+            String[] setColumns = columns.toArray(new String[0]);
+            //設定每一個資料的項目
+            String [] headings= setColumns;
+            //指定要顯示在表格中的資料
+            Object[][] data = new String[n][headings.length];
+            System.out.println("aaa"+n);
+            String [] totalArray= new String[headings.length];
+            JSONObject arrayhigh = (JSONObject) jsonArray.get(0);
+            double lastStroke=0;
+            String transQuantityboolean= "True";
+            for (int j = 0; j < n; j++) {
+                JSONObject jsb   =(JSONObject)jsonArray.get(j);
+                    for (int k = 0; k < headings.length; k++) {              
+                        data[j][k]=String.valueOf(jsb.get(headings[k]));
+                        if(headings[k].equals("Trans_Quantity")){
+                            double jsbDouble =  (double) jsb.get(headings[k]);
+                            
+                            //判斷第三題 只要有一天交易量低於昨天就設成False
+                            if ( lastStroke<jsbDouble){
+                                transQuantityboolean = "False";
+                            }
+                            //記錄昨天交易量
+                            lastStroke=Double.valueOf(jsbDouble);
+                        }
+                    }     
+            }
+            //第三題 欄位名稱 和 結果
+            String [] headings2={"是否為嚴格遞增"};
+            Object[][] data2 ={{transQuantityboolean}};
+            javax.swing.JTable table;
+            //建立 Table
+            //判斷是否為第三題如果是則表不讀取原本的 而是改讀計算結果
+            if(thirdQuestion==1){
+                table=new javax.swing.JTable(data2,headings2);
+            }else{
+                table=new javax.swing.JTable(data,headings);
+            }
+            //Frame 秀出表格
+            javax.swing.JFrame MyFrame=new javax.swing.JFrame("農漁表格");
+            MyFrame.setSize(500,200);
+            MyFrame.setLocation(200,200);
+            MyFrame.getContentPane().add(new javax.swing.JScrollPane(table));
+            MyFrame.setVisible(true);
+            }catch(Exception e){System.out.println(e);}
+        return null; 
     }
-//創表格
+
+
+        //創表格
 	public static void creatTable()throws Exception{
 		try {
-                       
-			Connection con = getConnection();
-			//如果表格不存在則創一個
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS agriproductstranstype(id int NOT NULL AUTO_INCREMENT, "
+                    Connection con = getConnection();
+                    //如果表格不存在則創一個
+                    PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS agriproductstranstype(id int NOT NULL AUTO_INCREMENT, "
 					+ "TransDate date,"
 					+ "CropCode varchar(10),"
 					+ "CropName varchar(20),"
@@ -544,8 +531,8 @@ public  HashSet<String> get() throws Exception{
 					+ "Avg_Price DOUBLE,"
 					+ "Trans_Quantity DOUBLE,"
 					+ "PRIMARY KEY(id));");
-			create.executeUpdate();
-                       PreparedStatement create2 = con.prepareStatement("CREATE TABLE IF NOT EXISTS fisheryproductstranstype(id int NOT NULL AUTO_INCREMENT, "
+                    create.executeUpdate();
+                    PreparedStatement create2 = con.prepareStatement("CREATE TABLE IF NOT EXISTS fisheryproductstranstype(id int NOT NULL AUTO_INCREMENT, "
 					+ "TransDate date,"
 					+ "CropCode varchar(10),"
 					+ "CropName varchar(20),"
@@ -554,16 +541,13 @@ public  HashSet<String> get() throws Exception{
 					+ "Avg_Price DOUBLE,"
 					+ "Trans_Quantity DOUBLE,"
 					+ "PRIMARY KEY(id));");
-			create2.executeUpdate();
-                        
-			
-			
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		finally{
+                    create2.executeUpdate();
+                    }catch(Exception e){
+                        System.out.println(e);
+                    }
+                    finally{
 			System.out.println("表格已完成");
-			};
+                    }
 	}
 	
 	
@@ -571,23 +555,20 @@ public  HashSet<String> get() throws Exception{
 	
 	public static Connection getConnection() throws Exception{
 		try {
-			String driver = "com.mysql.cj.jdbc.Driver";//驅動
-			String url = "jdbc:mysql://localhost:3305/bgete";//路徑
-			String username = "root";
-			String password = "z1x2c3";
-			Class.forName(driver);
-			
-			Connection conn = DriverManager.getConnection(url,username,password);
-			System.out.println("連線成功");
-			return conn;
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		
-		
-		
-		return null;
-		
+                    //SQL 基本設定輸入
+                    String driver = "com.mysql.cj.jdbc.Driver";//驅動
+                    String url = "jdbc:mysql://localhost:3305/bgete";//路徑
+                    String username = "root"; //名稱
+                    String password = "z1x2c3";//密碼
+                    Class.forName(driver);
+                    //SQL參數輸入
+                    Connection conn = DriverManager.getConnection(url,username,password);
+                    System.out.println("連線成功");
+                    return conn;
+                    }catch(Exception e){
+                        System.out.println(e);
+                    }
+		return null;	
 	}
 
  
