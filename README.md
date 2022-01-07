@@ -78,10 +78,6 @@ MarketName 同CropCode.
 Avg_Price & Trans_Quantity 因為需要計算故使用精度較高的DOUBLE.  
 至於原API內的**Upper_Price** 、 **Middle_Price** 、 **Lower_Price** 因為沒用到所以不輸入資料庫.  
 
-
-
-
-
 ## 使用說明
 > 第一題:
 > 輸入: 產品名稱 、 市場名稱 、 農漁別 、 開始時間 、 結束時間
@@ -109,24 +105,28 @@ Avg_Price & Trans_Quantity 因為需要計算故使用精度較高的DOUBLE.
 ![4](https://user-images.githubusercontent.com/77679082/148413292-354e450e-3297-4fee-bd5f-82b3ebc64bd3.png)  
 結果:<br>
 ![4農漁表格](https://user-images.githubusercontent.com/77679082/148413294-5dceab08-4ca1-4d79-80a3-be0d05eb6201.png)  
-## 雜
-Q:TLS版本不符合
-javax.net.ssl.SSLException: Connection reset
+## 尚未實現功能
+> 開啟主程式並從資料庫爬取最近一天 和 當天作比對假設家同則不進行爬取
+## 其他問題
+Q:為何要一天一天撈且不再進行三次迴圈撈取更多資料  
+A:因為不確定再加上何種參數可以完整撈完資料故統一每次只撈一天  
+Q:TLS版本不符合  
+javax.net.ssl.SSLException: Connection reset  
 A:com 輸入以下
 ```undefined
 java -Dhttps.protocols=SSLv3
 ```
-Q:爬蟲爬到空白頁
-java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
-A:判斷JSONArray大小為0 結束當次迴圈跳至下一天
+Q:爬蟲爬到空白頁  
+java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0  
+A:判斷JSONArray大小為0 結束當次迴圈跳至下一天  
  ```java
  if (a.size()==0){
                     continue;
                 }
 ```
 Q:爬蟲時報錯
-Too many connections
-A:修改最大連結數 1000是因為爬一天的數量為1000筆
+Too many connections  
+A:修改最大連結數 1000是因為爬一天的數量為1000筆  
 ```sql
 set global max_connections=1000;
 show variables like 'max_connections';
