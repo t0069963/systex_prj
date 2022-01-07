@@ -45,7 +45,7 @@
 - 十個農產品 、 (總交易量)
 ## 架構流程:
 主程式:<br>
-![流程圖 drawio](https://user-images.githubusercontent.com/77679082/148413297-606e65c7-7665-4a9e-a567-fad84584ca1a.png)  
+![流程圖2 drawio](https://user-images.githubusercontent.com/77679082/148490006-7e37b23b-95d9-4477-b422-57601ee9c94b.png)  
 爬蟲程式:<br>
 ![爬蟲流程圖 drawio](https://user-images.githubusercontent.com/77679082/148483350-85f0dcf4-f9ac-4cf5-b442-0494bd942a7f.png)  
 ```sql
