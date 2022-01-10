@@ -1,5 +1,5 @@
 -- 全部查詢
-SELECT * FROM agriproductstranstype2;
+SELECT * FROM agriproductstranstype;
 -- 查詢最新一筆
 SELECT * FROM fisheryproductstranstype ORDER BY TransDate DESC LIMIT 1;
 -- 查詢最早一筆
@@ -35,6 +35,7 @@ SELECT CropName,MarketName,AVG(Trans_Quantity),max(Trans_Quantity),min(Trans_Qua
 -- 輸入指定日期，顯示這一天漁產品的總交易金額跟農產品交易總交易金額大小。
 SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `agriproductstranstype` where TransDate = '2021-07-02';
 SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `fisheryproductstranstype` where TransDate = '2021-07-02';
+SELECT `agriproductstranstype`.TransDate,sum(`agriproductstranstype`.Trans_Quantity*`agriproductstranstype`.Avg_Price) as '農業加總交易量',`fisheryproductstranstype`.TransDate,sum(`fisheryproductstranstype`.Trans_Quantity*`fisheryproductstranstype`.Avg_Price) as '漁業加總交易量' From `agriproductstranstype`,`fisheryproductstranstype` where `agriproductstranstype`.TransDate = '2021-07-02' and `fisheryproductstranstype`.TransDate = '2021-07-02';
 
 
 -- 輸入指定日期跟市場與農產品，顯示過去五天的交易量是否為"嚴格遞增"

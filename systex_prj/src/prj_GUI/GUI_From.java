@@ -112,7 +112,8 @@ public class GUI_From extends javax.swing.JFrame {
             }
         });
 
-        CategoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "農業", "漁業"}));
+        CategoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "農業", "漁業","農業和漁業"}));
+        CategoryComboBox.setToolTipText("");
         CategoryComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CategoryComboBoxActionPerformed(evt);
@@ -230,9 +231,9 @@ public class GUI_From extends javax.swing.JFrame {
                     .addComponent(PastdaysTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(monthTextField))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SELECT)
                 .addContainerGap())
@@ -460,6 +461,17 @@ public  HashSet<String> get() throws Exception{
                         statement = con.prepareStatement("SELECT TransDate,sum(Trans_Quantity*Avg_Price) From `fisheryproductstranstype` where TransDate = '"+text[4]+"';");
                     }
                 }   
+            }
+            if (text[2] == "農業和漁業"){
+                     if(((text[3].length()!=0) ^ (text[4].length()!=0)) && text[5].equals("false") && text[6].length()== 0){
+                    System.out.println("農漁第二題");
+                    if ((text[3].length() - text[4].length())>0){
+                        statement = con.prepareStatement("SELECT `agriproductstranstype`.TransDate,sum(`agriproductstranstype`.Trans_Quantity*`agriproductstranstype`.Avg_Price) as '農業加總交易量',`fisheryproductstranstype`.TransDate,sum(`fisheryproductstranstype`.Trans_Quantity*`fisheryproductstranstype`.Avg_Price) as '漁業加總交易量' From `agriproductstranstype`,`fisheryproductstranstype` where `agriproductstranstype`.TransDate = '2021-07-02' and `fisheryproductstranstype`.TransDate = '"+text[3]+"';");
+                    }
+                    else if((text[4].length() - text[3].length())>=0){
+                        statement = con.prepareStatement("SELECT `agriproductstranstype`.TransDate,sum(`agriproductstranstype`.Trans_Quantity*`agriproductstranstype`.Avg_Price) as '農業加總交易量',`fisheryproductstranstype`.TransDate,sum(`fisheryproductstranstype`.Trans_Quantity*`fisheryproductstranstype`.Avg_Price) as '漁業加總交易量' From `agriproductstranstype`,`fisheryproductstranstype` where `agriproductstranstype`.TransDate = '2021-07-02' and `fisheryproductstranstype`.TransDate = '"+text[4]+"';");
+                    }
+                }  
             }
             
              

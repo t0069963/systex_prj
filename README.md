@@ -45,7 +45,7 @@
 - 十個農產品 、 (總交易量)
 ## 架構流程:
 主程式:<br>
-![流程圖2 drawio](https://user-images.githubusercontent.com/77679082/148490006-7e37b23b-95d9-4477-b422-57601ee9c94b.png)  
+![流程圖 drawio](https://user-images.githubusercontent.com/77679082/148719897-7eb94d9d-8f8c-4f71-8b06-d9e816a84fbc.png)  
 爬蟲程式:<br>
 ![爬蟲流程圖 drawio](https://user-images.githubusercontent.com/77679082/148483350-85f0dcf4-f9ac-4cf5-b442-0494bd942a7f.png)  
 ```sql
@@ -78,33 +78,7 @@ MarketName 同CropCode.
 Avg_Price & Trans_Quantity 因為需要計算故使用精度較高的DOUBLE.  
 至於原API內的**Upper_Price** 、 **Middle_Price** 、 **Lower_Price** 因為沒用到所以不輸入資料庫.  
 
-## 使用說明
-> 第一題:
-> 輸入: 產品名稱 、 市場名稱 、 農漁別 、 開始時間 、 結束時間
 
-![1](https://user-images.githubusercontent.com/77679082/148412834-96a5b093-2b3c-49ae-bd09-0de24d3fd2ad.png)  
-結果:<br>
-![1農漁表格](https://user-images.githubusercontent.com/77679082/148494745-b42184dd-9eed-48bc-95ea-ed2c8a3bb0c0.png)  
-> 第二題:
-> 輸入: 單一時間 、 農或漁
-
-![2](https://user-images.githubusercontent.com/77679082/148413085-7ff3a0a5-4af9-4446-80ad-0886d01237dd.png)  
-![2-1](https://user-images.githubusercontent.com/77679082/148413110-99680ee2-c779-43cc-adbe-2a37d47251cd.png)  
-結果:<br>
-![2農漁表格](https://user-images.githubusercontent.com/77679082/148413173-b24f4abd-a063-40bb-ac7b-48e829a3fc66.png)  
-![2-1農漁表格](https://user-images.githubusercontent.com/77679082/148413177-5bdfd75f-5015-4050-bf62-3cb2864f179c.png)  
-> 第三題:
-> 輸入: 產品名稱 、 市場名稱 、 農業 、單一時間 、 天數
-
-![3](https://user-images.githubusercontent.com/77679082/148413277-9af84335-ff2f-4023-bbcc-97bff97940eb.png)  
-結果:<br>
-![3農漁表格](https://user-images.githubusercontent.com/77679082/148413288-e602a341-0d74-48da-b6ca-ae6c4a84d566.png)  
-> 第四題:
-> 輸入: 輸入年月 、 按下開啟月份查詢
-
-![4](https://user-images.githubusercontent.com/77679082/148413292-354e450e-3297-4fee-bd5f-82b3ebc64bd3.png)  
-結果:<br>
-![4農漁表格](https://user-images.githubusercontent.com/77679082/148413294-5dceab08-4ca1-4d79-80a3-be0d05eb6201.png)  
 ## 尚未實現功能
 > 開啟主程式並從資料庫爬取最近一天 和 當天作比對假設家同則不進行爬取
 ## 其他問題
