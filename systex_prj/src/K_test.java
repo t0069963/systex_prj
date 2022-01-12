@@ -1,9 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 
@@ -27,16 +25,16 @@ public class K_test {
  double[] D = {1,2,3,4,50,51,52,53,500,501,502,503};
         int k = 3;
         double loss_convergence = 1e-10;
-        int iterations_num = 500;
+        int iterations_num = 100;
      ArrayList<Double>[]  answer=compute_centroids(D, k, loss_convergence,  iterations_num); 
      
-        for (int i = 0; i < answer.length; i++) {
-            for (int j = 0; j < answer[i].size(); j++) {
-                System.out.print(""+answer[i].get(j)+" ");
-            }
-            System.out.println();
-            
-        }
+//        for (int i = 0; i < answer.length; i++) {
+//            for (int j = 0; j < answer[i].size(); j++) {
+//                System.out.print(""+answer[i].get(j)+" ");
+//            }
+//            System.out.println();
+//            
+//        }
     }
     
     
@@ -103,7 +101,7 @@ public class K_test {
         }
       
         Arrays.sort(centroid_indices);
-        System.out.print("隨機元素:");
+        System.out.print("隨機質點:");
         for (double d : centroid_indices) {
             System.out.print(""+d+" ");
         }
@@ -119,7 +117,7 @@ public class K_test {
         centroids=(Double[]) keeanslist.get(0);
         ArrayList<Double>[] groups = (ArrayList<Double>[]) keeanslist.get(1);
         double old_loss = (double) keeanslist.get(2);
-        Double[] old_centroids=centroids;
+        Double[] old_centroids=(Double[]) keeanslist.get(0);
         int iterations = 1;
         //int counter = 0;
         while (true) {
@@ -130,13 +128,24 @@ public class K_test {
             double loss = (double) keeanslist.get(2);
             iterations = iterations + 1;
 //            if(dis(old_loss,loss)< loss_convergence || iterations > iterations_num){
-            if(old_centroids[0].equals(centroids[0]) && old_centroids[1].equals(centroids[1]) && old_centroids[2].equals(centroids[2])|| iterations > iterations_num){
+            if((old_centroids[0].toString().equals(centroids[0].toString())) && (old_centroids[1].toString().equals(centroids[1].toString())) && (old_centroids[2].toString().equals(centroids[2].toString())) && (iterations > iterations_num)){
+                //System.out.println(old_centroids[0].toString());
                 break;
             }
+           
+            System.out.println("質點: "+centroids[0]+" "+centroids[1]+" "+centroids[2]);
             old_loss = loss;
+            old_centroids=centroids;
+            System.out.println(groups[0]);
+            System.out.println(groups[1]);
+            System.out.println(groups[2]);
+            System.out.println("目前跑"+iterations+"次");
         }
-        System.out.println("總共跑"+iterations+"次");
-        System.out.println("質點: "+centroids[0]+" "+centroids[1]+" "+centroids[2]);
+         System.out.println("最後質點: "+centroids[0]+" "+centroids[1]+" "+centroids[2]);
+         System.out.println(groups[0]);
+         System.out.println(groups[1]);
+         System.out.println(groups[2]);
+         System.out.println("總共跑"+iterations+"次");
         return (groups);
         }
         public static double listsum(ArrayList<Double> DoubleList) {
