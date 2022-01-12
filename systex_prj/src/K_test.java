@@ -132,7 +132,7 @@ public class K_test {
                 //System.out.println(old_centroids[0].toString());
                 break;
             }
-           
+            
             System.out.println("質點: "+centroids[0]+" "+centroids[1]+" "+centroids[2]);
             old_loss = loss;
             old_centroids=centroids;
